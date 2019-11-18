@@ -3,7 +3,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  background-color: #3c3c3c;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,6 +10,30 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.App {
+  padding: 20px 0 20px 0;
+}
+
+.portal {
+  height: 100vh;
+}
+
+.App.dark {
+  background-color: #3c3c3c;
+}
+
+.App.light {
+  background-color: beige;
+}
+
+.portal.dark {
+  background-color: #3c3c3c;
+}
+
+.portal.light {
+  background-color: beige;
 }
 
 .btn {
@@ -22,20 +45,47 @@ code {
   font-weight: bold;
 }
 
-.btn-ok {
+.btn-ok.dark {
   background-color: forestgreen;
+  border: 2px solid forestgreen;
 }
 
-.btn-cancel {
+.btn-cancel.dark {
   background-color: tomato;
+  border: 2px solid tomato;
 }
 
-.btn-warn {
+.btn-ok.light {
+  background-color: whitesmoke;
+  border: 2px solid forestgreen;
+  color: forestgreen;
+}
+
+.btn-cancel.light {
+  background-color: whitesmoke;
+  border: 2px solid tomato;
+  color: tomato;
+}
+
+.btn-warn.dark {
   background-color: gold;
   color: #3c3c3c;
 }
 
+.btn-warn.light {
+  background-color: whitesmoke;
+  border: 2px solid gold;
+  color: #3c3c3c;
+}
+
 .text {
-  color: whitesmoke;
   padding: 5px;
+}
+
+.text.dark {
+  color: whitesmoke;
+}
+
+.text.light {
+  color: #3c3c3c;
 }

@@ -1,104 +1,111 @@
-import React from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
-import Button from './components/Button';
+import CancelledView from './components/CancelledView';
 import ErrorView from './components/ErrorView';
-import ResultItem from './components/ResultItem';
 import axios from 'axios';
+import Loader from './components/Loader';
+import ThemeSwitcher from './components/ThemeSwitcher';
+import Toolbar from './components/Toolbar';
+import { Theme } from './context/Theme';
+import { ThemePortal } from './context/ThemePortal';
+import ProfilePortal from './portals/ProfilePortal';
 
-class App extends React.Component {
-    state = {
-        isLoading: false,
+const Profile = React.lazy(() => import('./components/Profile'));
+
+export default function App() {
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState({
         isError: false,
-        isCancelled: false,
-        user: null
-    };
+        message: ''
+    });
+    const [isCancelled, setCancelled] = useState(false);
+    const [toolbarTheme, setToolbarTheme] = useState('dark');
+    const [resultsTheme, setResultsTheme] = useState('light');
 
-    CancelToken = axios.CancelToken;
-    source = this.CancelToken.source();
-    url = 'https://randomuser.me/api/';
+    const CancelToken = axios.CancelToken;
+    const url = 'https://randomuser.me/api/';
 
-    sendRequest = async () => {
-        this.setState({
-            isLoading: true,
-            isError: false
-        });
+    let source = CancelToken.source();
 
-        this.source = this.CancelToken.source();
+    async function sendRequest() {
+        source = CancelToken.source();
+
+        this.cancelBtnRef && this.cancelBtnRef.current && this.cancelBtnRef.current.focus();
 
         try {
-            const response = await axios.get(this.url, {
-                cancelToken: this.source.token
+            const response = await axios.get(url, {
+                cancelToken: source.token
             });
             const user = response.data.results[0];
 
-            setTimeout(() => {
-                this.setState({
-                    isLoading: false,
-                    user: {
-                        email: user.email,
-                        name: user.name
-                    }
-                });
-            }, 2000);
-        } catch (error) {
-            this.setState({
-                user: '',
-                isLoading: false
+            setCancelled(false);
+            setUser({
+                email: user.email,
+                name: user.name,
+                image: user.picture.medium
             });
+        } catch (error) {
+            setUser(null);
 
             if (axios.isCancel(error)) {
-                this.setState({
-                    isCancelled: true
-                });
-
-                setTimeout(() => {
-                    this.setState({ isCancelled: false });
-                }, 3000);
+                setCancelled(true);
             } else {
-                this.setState({
+                setError({
                     isError: true,
-                    errorMsg: error
+                    message: error.message
                 });
             }
         }
-    };
-
-    cancelRequest = () => {
-        this.source.cancel('Operation canceled by the user.');
-
-        //////////////////////
-        this.setState({
-            user: '',
-            isLoading: false,
-            isCancelled: true
-        });
-
-        setTimeout(() => {
-            this.setState({ isCancelled: false });
-        }, 3000);
-    };
-
-    render() {
-        return (
-            <div className="App">
-                <Button
-                    className="btn-ok"
-                    text="Send request"
-                    onClickHandler={this.sendRequest} />
-
-                <Button
-                    className="btn-cancel"
-                    text="Cancel request"
-                    onClickHandler={this.cancelRequest} />
-
-                {
-                    this.state.isError
-                        ? <ErrorView onClickHandler={this.sendRequest} errorMsg={this.state.errorMsg} />
-                        : <ResultItem state={this.state} />
-                }
-            </div>
-        );
     }
-}
 
-export default App;
+    const cancelRequest = () => {
+        source.cancel('Operation canceled by the user.');
+    };
+
+    useEffect(() => {
+        return () => {
+            cancelRequest();
+        };
+    });
+
+    const toolbarThemeChange = (e) => {
+        setToolbarTheme(e.currentTarget.value);
+    };
+
+    const resultsThemeChange = (e) => {
+        setResultsTheme(e.currentTarget.value);
+    };
+
+    return (
+        <div className={`App ${toolbarTheme}`}>
+            <Theme.Provider value={toolbarTheme}>
+                <ThemeSwitcher
+                    onChangeHandler={toolbarThemeChange}
+                    text={'Toolbar theme'}
+                    themeFor={'toolbar'}
+                    defaultTheme={toolbarTheme}
+                />
+                <Toolbar sendRequest={sendRequest} cancelRequest={cancelRequest} />
+                <ThemeSwitcher
+                    onChangeHandler={resultsThemeChange}
+                    text={'Results theme'}
+                    themeFor={'results'}
+                    defaultTheme={resultsTheme}
+                />
+
+            </Theme.Provider>
+
+            <ThemePortal.Provider value={resultsTheme}>
+                <ProfilePortal>
+                    <div className={`portal ${resultsTheme}`}>
+                        <Suspense fallback={<Loader />}>
+                            {user && <Profile user={user} />}
+                            {error.isError && <ErrorView onClickHandler={sendRequest} errorMsg={error.message} />}
+                            {isCancelled && <CancelledView />}
+                        </Suspense>
+                    </div>
+                </ProfilePortal>
+            </ThemePortal.Provider>
+        </div>
+    );
+}
