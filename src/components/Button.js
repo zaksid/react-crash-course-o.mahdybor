@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Theme } from '../context/Theme';
 
-class Button extends React.Component {
-    render() {
-        const { text, onClickHandler, className } = this.props;
-        return (
-            <button
-                onClick={onClickHandler}
-                className={`btn ${className}`}
-            >
-                {text}
-            </button>
-        );
-    }
+export default function Button(props) {
+    const { text, onClickHandler, className, rf } = props;
+    const theme = useContext(Theme);
+
+    return (
+        <button
+            ref={rf}
+            onClick={onClickHandler}
+            className={`btn ${className} ${theme}`}
+        >
+            {text}
+        </button>
+    );
 }
-
-export default Button;
