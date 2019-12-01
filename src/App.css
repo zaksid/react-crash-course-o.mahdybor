@@ -1,22 +1,79 @@
 .App {
   text-align: center;
+  padding: 20px 0 20px 0;
 }
 
-.App-logo {
-  height: 40vmin;
+.App.dark {
+  background-color: #3c3c3c;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.App.light {
+  background-color: beige;
 }
 
-.App-link {
-  color: #09d3ac;
+.portal {
+  text-align: center;
+  height: 100vh;
+}
+
+.portal.dark {
+  background-color: #3c3c3c;
+}
+
+.portal.light {
+  background-color: beige;
+}
+
+.btn {
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  margin: 5px;
+  color: whitesmoke;
+  font-weight: bold;
+}
+
+.btn-ok.dark {
+  background-color: forestgreen;
+  border: 2px solid forestgreen;
+}
+
+.btn-cancel.dark {
+  background-color: tomato;
+  border: 2px solid tomato;
+}
+
+.btn-ok.light {
+  background-color: whitesmoke;
+  border: 2px solid forestgreen;
+  color: forestgreen;
+}
+
+.btn-cancel.light {
+  background-color: whitesmoke;
+  border: 2px solid tomato;
+  color: tomato;
+}
+
+.btn-warn.dark {
+  background-color: gold;
+  color: #3c3c3c;
+}
+
+.btn-warn.light {
+  background-color: whitesmoke;
+  border: 2px solid gold;
+  color: #3c3c3c;
+}
+
+.text {
+  padding: 5px;
+}
+
+.text.dark {
+  color: whitesmoke;
+}
+
+.text.light {
+  color: #3c3c3c;
 }

@@ -1,0 +1,8 @@
+{
+    "FetchUserCancel": "FETCH_USERS_CANCEL",
+    "FetchUserError": "FETCH_USERS_ERROR",
+    "FetchUserStart": "FETCH_USERS_START",
+    "FetchUserSuccess": "FETCH_USERS_SUCCESS",
+    "SetResultsTheme": "SET_RESULTS_THEME",
+    "SetToolbarTheme": "SET_TOOLBAR_THEME"
+}

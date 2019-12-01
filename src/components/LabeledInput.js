@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import { Theme } from '../context/Theme';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function LabeledInput(props) {
-    const theme = useContext(Theme);
+    const theme = useSelector(state => state.theme.toolbarTheme);
     const { type, name, value, onChangeHandler, labelText, isChecked } = props;
 
     return (
