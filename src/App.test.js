@@ -1,9 +1,23 @@
+import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+import Toolbar from './components/Toolbar';
+import store from './redux/stores/store';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('<App />', () => {
+    it('should focus on Cancel Request button', async () => {
+        const { getByText } = render(
+            <Provider store={store}>
+                <Toolbar />
+            </Provider>
+        );
+
+        const sendRequestBtn = getByText('Send request');
+        const cancelRequestBtn = getByText('Cancel request');
+
+        fireEvent.click(sendRequestBtn);
+
+        expect(cancelRequestBtn).toHaveFocus();
+    });
 });

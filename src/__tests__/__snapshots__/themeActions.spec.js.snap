@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`themeActions setResultsTheme should match snapshot 1`] = `
+Object {
+  "payload": "dark",
+  "type": "SET_RESULTS_THEME",
+}
+`;
+
+exports[`themeActions setToolbarTheme setToolbarTheme should match snapshot 1`] = `
+Object {
+  "payload": "light",
+  "type": "SET_TOOLBAR_THEME",
+}
+`;

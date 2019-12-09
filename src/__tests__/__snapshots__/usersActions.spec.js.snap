@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setResultsTheme all should match snapshot 1`] = `
+Object {
+  "type": "FETCH_USERS_CANCEL",
+}
+`;
+
+exports[`setResultsTheme all should match snapshot 2`] = `
+Object {
+  "payload": "error",
+  "type": "FETCH_USERS_ERROR",
+}
+`;
+
+exports[`setResultsTheme all should match snapshot 3`] = `
+Object {
+  "type": "FETCH_USERS_START",
+}
+`;
+
+exports[`setResultsTheme all should match snapshot 4`] = `
+Object {
+  "payload": Array [],
+  "type": "FETCH_USERS_SUCCESS",
+}
+`;
