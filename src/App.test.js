@@ -6,7 +6,7 @@ import Toolbar from './components/Toolbar';
 import store from './redux/stores/store';
 
 describe('<App />', () => {
-    it('should focus on Cancel Request button', async () => {
+    it('should focus on Cancel Request button', () => {
         const { getByText } = render(
             <Provider store={store}>
                 <Toolbar />
