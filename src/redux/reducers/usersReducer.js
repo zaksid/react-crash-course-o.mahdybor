@@ -73,7 +73,9 @@ export const fetchUsers = () => async (dispatch) => {
             dispatch(fetchError(error.message));
         }
     } finally {
+        /* eslint-disable require-atomic-updates */
         source = null;
+        /* eslint-enable require-atomic-updates */
     }
 };
 

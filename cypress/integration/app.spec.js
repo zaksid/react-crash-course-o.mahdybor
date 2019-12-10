@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 describe('Test loading user info', () => {
     before(() => {
         cy.visit('http://127.0.0.1:3000');

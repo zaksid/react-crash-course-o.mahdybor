@@ -1,7 +1,6 @@
-import { setResultsTheme } from '../redux/actions/themeActions';
 import { fetchCancel, fetchError, fetchUsersStart, usersLoaded } from '../redux/actions/usersActions';
 
-describe('setResultsTheme', () => {
+describe('Test user actions', () => {
     const actionFetchUsersStart = fetchUsersStart();
     const actionUsersLoaded = usersLoaded([]);
     const actionFetchCancel = fetchCancel();
