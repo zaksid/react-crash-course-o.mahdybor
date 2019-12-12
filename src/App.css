@@ -77,3 +77,7 @@
 .text.light {
   color: #3c3c3c;
 }
+
+.labeled-value .label {
+  font-weight: bold;
+}

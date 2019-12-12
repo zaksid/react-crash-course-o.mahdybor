@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import LabeledValue from './LabeledValue';
 
 export default function Profile() {
     const user = useSelector(state => state.users.users[0], shallowEqual());
@@ -10,8 +11,8 @@ export default function Profile() {
             {user &&
             <div className={`text ${theme}`}>
                 <img src={user.picture} />
-                <div>Name: {`${user.name.first} ${user.name.last}`}</div>
-                <div>Email: {user.email}</div>
+                <LabeledValue label="Name: " value={`${user.name.first} ${user.name.last}`} testId="user-name" />
+                <LabeledValue label="Email: " value={user.email} testId="user-email" />
             </div>
             }
         </>
