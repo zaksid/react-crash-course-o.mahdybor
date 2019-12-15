@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
-import { Theme } from '../context/Theme';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-export default function Button(props) {
-    const { text, onClickHandler, className, rf } = props;
-    const theme = useContext(Theme);
+const Button = React.forwardRef((props, ref) => {
+    const { text, onClickHandler, className } = props;
+    const theme = useSelector(state => state.theme.toolbarTheme);
 
     return (
         <button
-            ref={rf}
+            ref={ref}
             onClick={onClickHandler}
             className={`btn ${className} ${theme}`}
         >
             {text}
         </button>
     );
-}
+});
+
+export default Button;

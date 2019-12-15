@@ -1,22 +1,25 @@
 import React from 'react';
-import { withTheme } from '../context/ThemePortal';
+import { useSelector } from 'react-redux';
 import Button from './Button';
 
-function ErrorView(props) {
-    const { errorMsg, onClickHandler, theme } = props;
+export default function ErrorView(props) {
+    const { onClickHandler } = props;
+
+    const error = useSelector(state => state.users.error);
+    const theme = useSelector(state => state.theme.resultsTheme);
 
     return (
-        <div>
-            <span className={`text ${theme}`}>
-                An error occurred: {errorMsg}
-            </span>
-            <Button
-                className="btn-warn"
-                text="Retry"
-                onClickHandler={onClickHandler}
-            />
-        </div>
+        <>
+            {error && <div>
+                <span className={`text ${theme}`}>
+                    An error occurred: {error}
+                </span>
+                <Button
+                    className="btn-warn"
+                    text="Retry"
+                    onClickHandler={onClickHandler}
+                />
+            </div>}
+        </>
     );
 }
-
-export default withTheme(ErrorView);

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Theme } from '../context/Theme';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import LabeledInput from './LabeledInput';
 
 export default function ThemeSwitcher(props) {
     const { themeFor, text, defaultTheme } = props;
-    const theme = useContext(Theme);
+    const theme = useSelector(state => state.theme.toolbarTheme);
 
     return (
         <div>
